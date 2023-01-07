@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\ResourceController;
 use App\Http\Controllers\Api\V0TestController;
 use App\Http\Controllers\Api\V1TestController;
+use App\Http\Controllers\Api\V2ResourceController;
 use App\Http\Controllers\Api\V2TestController;
 use App\Http\Controllers\Api\V3TestController;
 use App\Http\Controllers\Api\V5TestController;
@@ -48,6 +50,12 @@ Route::prefix('test')->group( function () {
             'V2' =>  [V2TestController::class, 'index'],
             'V3' =>  [V3TestController::class, 'index'],
             'V5' =>  [V5TestController::class, 'index'],
+        ]
+    ));
+    Route::resource('res', ApiVersioning::UseApiMultiVersions(
+        [
+            '0'=> ResourceController::class,
+            'V2'=> V2ResourceController::class,
         ]
     ));
 });
